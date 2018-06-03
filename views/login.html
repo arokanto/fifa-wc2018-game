@@ -23,6 +23,12 @@
 
 <h2>Eikö sinulla ole vielä tunnuksia? Rekisteröidy</h2>
 <form id="form-register" class="login-form" action="/register" method="post">
+
+    {% if registered %}
+        <p class="notification notification--ok">
+            Kiitos! Nyt voit kirjautua sisään tuosta yläpuolelta.
+        </p>
+    {% endif %}
     <label>
         Sähköpostiosoite
         <input type="email" required name="email">

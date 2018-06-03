@@ -26,7 +26,7 @@ router.post('/', urlEncodedParser, function(req, res, next) {
       } else {
         req.session.login_id = result.rows[0].id
         req.session.display_name = result.rows[0].display_name
-        res.redirect('/login?ok')
+        res.redirect('/login?registered=1')
       }
     })
     

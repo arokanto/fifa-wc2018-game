@@ -8,9 +8,11 @@ var urlEncodedParser = bodyParser.urlencoded({ extended: false })
 
 router.get('/', function(req, res, next) {
   errorMessage = getErrorMessage(req.query.error)
+  registered = (req.query.registered == '1')
   res.render('login.html', {
     title: 'Kirjaudu sisään',
-    error: errorMessage
+    error: errorMessage,
+    registered: registered
   })
 })
 
