@@ -18,12 +18,12 @@ router.get('/', function(req, res, next) {
   });
 });
 
-app.get('/robots.txt', function (req, res) {
+router.get('/robots.txt', function (req, res) {
   res.type('text/plain');
   res.send("User-agent: *\nDisallow: /");
 });
 
-app.get('/favicon.ico', function (req, res) {
+router.get('/favicon.ico', function (req, res) {
   res.sendStatus(404)
 });
 
