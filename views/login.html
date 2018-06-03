@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<form id="form-login" class="login-form" action="/login" method="post">
+    {% if error %}
+        <p class="error error--login">
+            {{ error }}
+        </p>
+    {% endif %}
+    <label>
+        Sähköpostiosoite
+        <input type="email" required name="email">
+    </label>
+    <label>
+        Salasana
+        <input type="password" required name="password">
+    </label>
+    
+    <input type="submit" value="Kirjaudu sisään">
+</form>
+
+<hr>
+
+<h2>Eikö sinulla ole vielä tunnuksia? Rekisteröidy</h2>
+<form id="form-register" class="login-form" action="/register" method="post">
+    <label>
+        Sähköpostiosoite
+        <input type="email" required name="email">
+    </label>
+    <label>
+        Käyttäjänimi (näkyy sivustolla)
+        <input type="text" required name="display_name">
+    </label>
+    <label>
+        Salasana
+        <input type="password" required name="password">
+    </label>
+    <label>
+        Salasana uudelleen
+        <input type="password" required name="password-repeat">
+    </label>
+
+    <input type="submit" value="Rekisteröidy">
+</form>
+{% endblock %}

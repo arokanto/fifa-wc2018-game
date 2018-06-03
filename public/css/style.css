@@ -1,0 +1,187 @@
+body {
+  padding: 1rem;
+  margin: 0;
+  font: 14px Palatino, Georgia, serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+label {
+  display: block;
+  clear: both;
+  margin: 1rem 0;
+}
+label input {
+  float: right;
+  width: 50%;
+  font-size: 1rem;
+  padding: 0.2rem;
+  border: 1px solid #00B7FF;
+}
+label input:invalid {
+  border: 1px solid rgb(118, 0, 7)
+}
+
+input[type="button"], input[type="submit"], button, .button {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 0.1rem;
+  background-color: #0f3f79;
+  color: #FFF;
+  border: 0;
+  padding: 0.4rem 0.4rem;
+  cursor: pointer;
+}
+
+header {
+  background: url('/img/header_bg.png') repeat center center;
+  color: #FFF;
+  padding: 1rem;
+}
+
+nav {
+  float: left;
+}
+
+nav a {
+  color: #FFF;
+  font-weight: bold;
+  font-size: 1.2rem;
+  display: inline-block;
+  margin-right: 1rem;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+nav a:hover { color: #00B7FF; }
+nav a.active { text-decoration: underline; }
+
+.login-form {
+  max-width: 40rem;
+  margin-bottom: 4rem;
+}
+.login-form:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+.login-form input[type="submit"] {
+  float: right;
+}
+
+.page-title {
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  font-weight: bold;
+  margin-top: 0;
+  color: #FFF;
+  float: left;
+}
+
+.header--login {
+  float: right;
+}
+
+.clearfix:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+.block--half-width {
+  width: 49%;
+  float: left;
+}
+
+.block--half-width__right {
+  float: right;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+th {
+  background-color: #0f3f79;
+  color: #FFF;
+  padding: 0.5rem;
+}
+td {
+  padding: 0.5rem;
+  border: 1px solid #ddf;
+  text-align: center;
+}
+
+.table--group-matches input {
+  font-size: 2rem;
+  width: 40px;
+  text-align: center;
+}
+
+.match--team--container {
+  display: flex;
+}
+
+.match--team--container__away {
+  text-align: left;
+}
+
+.match--team--container__home {
+  text-align: right;
+  flex-direction: row-reverse;
+}
+
+.match--team {
+  display: inline;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.match--team--container__home .match--team {
+  margin-right: 1rem;
+}
+
+.match--team--container__away .match--team {
+  margin-left: 1rem;
+}
+
+.match--team--flag {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  vertical-align: middle;
+  background-position: 50% 50%;
+  border-radius: 50%;
+  background-size: cover;
+  border: 1px solid #DDF;
+  margin: 0 0.5rem;
+}
+
+.error {
+  color: rgb(118, 0, 7);
+  background-color: rgba(118, 0, 7, 0.2);
+  font-weight: bold;
+  padding: 1rem;
+  margin: 1rem;
+}
+
+.dropdown--teams {
+  font-size: 1rem;
+}
+
+.goal-star {
+  font-size: 1rem;
+}
+
+.loader {
+  display: none;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+}
+.loader img {
+  width: 50px;
+}

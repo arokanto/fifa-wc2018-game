@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Jalkapallon MM 2018 Kisaveikkaus - {{ title }}</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+    <header class="clearfix">
+      <p class="page-title">MM 2018 -kisaveikkaus</p>
+      <!--<nav>
+        <a href="/">Etusivu</a>
+        <a href="/ohjeet">Ohjeet</a>
+      </nav>-->
+      <div class="header--login">
+        {% if display_name %}
+          Olet kirjautunut nimellä {{ display_name }}. <br>
+          <a href="/logout">Kirjaudu ulos</a>
+        {% else %}
+          <a href="/login">Kirjaudu sisään</a>
+        {% endif %}
+      </div>
+    </header>
+    <h1>{{ title }}</h1>
+    
+    {% block content %}{% endblock %}
+
+  </body>
+</html>

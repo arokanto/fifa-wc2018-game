@@ -1,0 +1,118 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="block block--half-width">
+    <h2>Alkulohkojen pelit</h2>
+    <table class="table table--group-matches">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Aloitusaika</th>
+                <th>Kotijoukkue</th>
+                <th>Vierasjoukkue</th>
+            </tr>
+        </thead>
+        <tbody id="table--group-matches">
+
+        </tbody>
+    </table>
+</div>
+
+<div class="block block--half-width block--half-width__right">
+    <h2>Neljännesvälierien joukkueet</h2>
+    <table class="table table--best-16">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Veikkauksesi</th>
+                <th>Oikea joukkue</th>
+                <th>Pisteet</th>
+            </tr>
+        </thead>
+        <tbody id="table--best-16">
+
+        </tbody>
+    </table>
+</div>
+
+<div class="block block--half-width block--half-width__right">
+    <h2>Puolivälierien joukkueet</h2>
+    <table class="table table--best-8">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Veikkauksesi</th>
+                <th>Oikea joukkue</th>
+                <th>Pisteet</th>
+            </tr>
+        </thead>
+        <tbody id="table--best-8">
+
+        </tbody>
+    </table>
+</div>
+
+<div class="block block--half-width block--half-width__right">
+    <h2>Välierien joukkueet</h2>
+    <table class="table table--best-4">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Veikkauksesi</th>
+                <th>Oikea joukkue</th>
+                <th>Pisteet</th>
+            </tr>
+        </thead>
+        <tbody id="table--best-4">
+
+        </tbody>
+    </table>
+</div>
+
+<div class="block block--half-width block--half-width__right">
+    <h2>Loppuottelun joukkueet</h2>
+    <table class="table table--best-2">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Veikkauksesi</th>
+                <th>Oikea joukkue</th>
+                <th>Pisteet</th>
+            </tr>
+        </thead>
+        <tbody id="table--best-2">
+
+        </tbody>
+    </table>
+</div>
+
+<div class="block block--half-width block--half-width__right">
+    <h2>Voittaja</h2>
+    <table class="table table--best-1">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Veikkauksesi</th>
+                <th>Oikea joukkue</th>
+                <th>Pisteet</th>
+            </tr>
+        </thead>
+        <tbody id="table--best-1">
+
+        </tbody>
+    </table>
+</div>
+
+<div class="block block--half-width block--half-width__right">
+    <h2>Maalitykki</h2>
+    <input type="text" class="goal-star" id="goalStar">
+</div>
+
+<div class="loader" id="loader">
+    <img src="/img/loader.gif">
+</div>
+
+<script src="js/getData.js"></script>
+<script src="js/frontpage.js"></script>
+
+{% endblock %}
