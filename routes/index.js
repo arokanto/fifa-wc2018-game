@@ -18,9 +18,14 @@ router.get('/', function(req, res, next) {
   });
 });
 
+app.get('/robots.txt', function (req, res) {
+  res.type('text/plain');
+  res.send("User-agent: *\nDisallow: /");
+});
 
-function loadData() {
+app.get('/favicon.ico', function (req, res) {
+  res.sendStatus(404)
+});
 
-}
 
 module.exports = router;

@@ -48,4 +48,5 @@ app.use('/logout',    require('./routes/logout'))
 app.use('/register',  require('./routes/register'))
 
 // Start listening to requests
-app.listen(3000, () => console.log('App listening at port 3000.'))
+port = process.env.PORT || 8000
+app.listen(port, (port) => console.log('App listening at port ' + port))
