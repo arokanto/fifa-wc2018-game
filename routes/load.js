@@ -64,8 +64,9 @@ function loadData(response, user_id) {
             if (err) {
               console.log(err.stack)
             } else {
-              jsonObject.goal_star = result.rows[0].player
-              
+              if (result.rows.length > 0) {
+                jsonObject.goal_star = result.rows[0].player
+              }
               response.send(jsonObject)
             }
           })
