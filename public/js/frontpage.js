@@ -3,14 +3,14 @@ var activeElement
 var goalStarTimout
 var loader = document.getElementById('loader')
 
-fetch('/data/')
+fetch('/data/', { credentials: 'include' })
   .then(function(response) {
     return response.json()
   })
   .then(function(data) {
     jsonData = data
 
-    fetch('/load/')
+    fetch('/load/', { credentials: 'include' })
       .then(function(response) {
         return response.json()
       })
@@ -172,7 +172,7 @@ function saveGoalStar() {
   fetch('/save/goal_star', {
     body: JSON.stringify(data), 
     cache: 'no-cache', 
-    credentials: 'same-origin',
+    credentials: 'include',
     headers: {
       'content-type': 'application/json'
     },
@@ -195,7 +195,7 @@ function saveGroupMatchGuess(matchId, homeGuess, awayGuess) {
   fetch('/save/group_match', {
     body: JSON.stringify(data), 
     cache: 'no-cache', 
-    credentials: 'same-origin',
+    credentials: 'include',
     headers: {
       'content-type': 'application/json'
     },
@@ -218,7 +218,7 @@ function saveRoundGuess(round, team, position) {
   fetch('/save/round', {
     body: JSON.stringify(data), 
     cache: 'no-cache', 
-    credentials: 'same-origin',
+    credentials: 'include',
     headers: {
       'content-type': 'application/json'
     },

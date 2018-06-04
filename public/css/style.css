@@ -91,13 +91,14 @@ nav a.active { text-decoration: underline; }
   clear: both;
 }
 
-.block--half-width {
-  width: 49%;
-  float: left;
-}
-
-.block--half-width__right {
-  float: right;
+@media screen and (min-width: 60rem) {
+  .block--half-width {
+    width: 49%;
+    float: left;
+  }
+  .block--half-width__right {
+    float: right;
+  }
 }
 
 table {

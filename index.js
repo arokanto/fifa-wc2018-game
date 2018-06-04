@@ -49,4 +49,6 @@ app.use('/register',  require('./routes/register'))
 
 // Start listening to requests
 var port = process.env.PORT || 8000
-app.listen(port, (port) => console.log('App listening at port ' + port))
+var listener = app.listen(port, function(a, b, c) {
+  console.log( 'App started in port ' + listener.address().port )
+})
