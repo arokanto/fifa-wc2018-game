@@ -4,6 +4,7 @@
 
 # Git
 !.gitignore
+!.env.template
 
 # Libs
 /node_modules/
