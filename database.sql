@@ -16,7 +16,7 @@ CREATE TABLE "player" (
 	"email_address" varchar NOT NULL UNIQUE,
 	"pass_hash" varchar NOT NULL,
 	"display_name" varchar NOT NULL UNIQUE,
-	"reset_password" BOOLEAN NOT NULL,
+	"reset_password" BOOLEAN,
 	CONSTRAINT player_pk PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
