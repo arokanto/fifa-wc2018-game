@@ -1,8 +1,14 @@
 {% extends "layout.html" %}
 
 {% block content %}
+<div class="lead">
+    <p>Muutokset tallentuvat automaattisesti.</p>
+    <p>Tasapisteissä ratkaiseva tekijä järjestyksessä: mestari, maalikuningas, finalistit, semifinalistit, jne.</p>
+</div>
+
 <div class="block block--half-width">
     <h2>Alkulohkojen pelit</h2>
+    <p>Veikataan lopputulos. Oikeasta tuloksesta 2 pistettä, oikeasta 1x2-arvauksesta 1 piste.</p>
     <table class="table table--group-matches">
         <thead>
             <tr>
@@ -20,6 +26,7 @@
 
 <div class="block block--half-width block--half-width__right">
     <h2>Neljännesvälierien joukkueet</h2>
+    <p>Oikeasta joukkueesta 2 pistettä / joukkue. Järjestyksellä ei ole väliä.</p>
     <table class="table table--best-16">
         <thead>
             <tr>
@@ -37,6 +44,7 @@
 
 <div class="block block--half-width block--half-width__right">
     <h2>Puolivälierien joukkueet</h2>
+    <p>Oikeasta joukkueesta 4 pistettä / joukkue. Järjestyksellä ei ole väliä.</p>
     <table class="table table--best-8">
         <thead>
             <tr>
@@ -54,6 +62,7 @@
 
 <div class="block block--half-width block--half-width__right">
     <h2>Välierien joukkueet</h2>
+    <p>Oikeasta joukkueesta 8 pistettä / joukkue. Järjestyksellä ei ole väliä.</p>
     <table class="table table--best-4">
         <thead>
             <tr>
@@ -71,6 +80,7 @@
 
 <div class="block block--half-width block--half-width__right">
     <h2>Loppuottelun joukkueet</h2>
+    <p>Oikeasta joukkueesta 12 pistettä / joukkue. Järjestyksellä ei ole väliä.</p>
     <table class="table table--best-2">
         <thead>
             <tr>
@@ -88,6 +98,7 @@
 
 <div class="block block--half-width block--half-width__right">
     <h2>Voittaja</h2>
+    <p>Oikeasta joukkueesta 16 pistettä.</p>
     <table class="table table--best-1">
         <thead>
             <tr>
@@ -104,7 +115,8 @@
 </div>
 
 <div class="block block--half-width block--half-width__right">
-    <h2>Maalitykki</h2>
+    <h2>Maalikuningas</h2>
+    <p>Oikeasta arvauksesta 10 pistettä.</p>
     <input type="text" class="goal-star" id="goalStar">
 </div>
 
