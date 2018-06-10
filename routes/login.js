@@ -12,7 +12,8 @@ router.get('/', function(req, res, next) {
   res.render('login.njk', {
     title: 'Kirjaudu sisään',
     error: errorMessage,
-    registered: registered
+    registered: registered,
+    path: req.originalUrl
   })
 })
 

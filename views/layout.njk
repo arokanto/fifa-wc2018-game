@@ -18,13 +18,16 @@
         {% endif %}
       </div>
     </header>
-    <nav>
-      <a href="/" 
-        {% if path == '/' %} class="active" {% endif %}>Veikkauksesi</a>
 
-      <a href="/scores" 
-        {% if path == '/scores' %} class="active" {% endif %}>Pistetaulukko</a>
-    </nav>
+    {% if path != '/login' %}
+      <nav>
+        <a href="/" 
+          {% if path == '/' %} class="active" {% endif %}>Veikkauksesi</a>
+
+        <a href="/scores" 
+          {% if path == '/scores' %} class="active" {% endif %}>Pistetaulukko</a>
+      </nav>
+    {% endif %}
 
     <div class="content">
 
