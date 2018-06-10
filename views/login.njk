@@ -1,6 +1,13 @@
 {% extends "layout.njk" %}
 
 {% block content %}
+
+<script>
+    if (window.fetch == undefined) {
+        alert("Selaimesi ei näytä tukevan tämän sivun edellyttämiä toiminnallisuuksia.\n\nKäytä jotain toista selainta.")
+    }
+</script>
+
 <form id="form-login" class="login-form" action="/login" method="post">
     {% if error %}
         <p class="error error--login">
