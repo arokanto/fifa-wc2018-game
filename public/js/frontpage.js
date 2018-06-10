@@ -2,20 +2,27 @@ var jsonData
 var activeElement
 var goalStarTimout
 var loader = document.getElementById('loader')
+var knockoutClosed = true
 
-fetch('/data/', { credentials: 'include' })
+fetch('/load/data/', { credentials: 'include' })
   .then(function(response) {
     return response.json()
   })
   .then(function(data) {
     jsonData = data
 
-    fetch('/load/', { credentials: 'include' })
+    fetch('/load/me', { credentials: 'include' })
       .then(function(response) {
         return response.json()
       })
       .then(function(data){
         userData = data
+
+        if (!jsonData.knockout_closed) {
+          knockoutClosed = false
+        } else {
+          document.getElementById('goalStar').setAttribute('disabled', true)
+        }
 
         printGroups(jsonData.groups)
         printBestTable(16)
@@ -37,6 +44,11 @@ function printGroups(groups) {
     let thisMatch = matches[i]
     let thisDate = new Date(thisMatch.date)
 
+    disabledClass = ''
+    if (thisMatch.started) {
+      disabledClass = 'disabled'
+    }
+
     let guess_home = 0
     let guess_away = 0
     let thisMatchName = 'match_' + thisMatch.name
@@ -47,13 +59,13 @@ function printGroups(groups) {
       guess_away = guesses.away
     }
     
-    output += '<tr>';
+    output += '<tr class="' + disabledClass + '">';
     output += '<td>' + thisMatch.name + '</td>'
     output += '<td>' + thisDate.toLocaleDateString("fi-FI") 
                + ' ' + thisDate.toLocaleTimeString("fi-FI") + '</td>'
     output += '<td>' 
     output += '<label class="match--team--container match--team--container__home">'
-    output += '<input value="' + guess_home + '" type="number" min="0" max="9" class="group-match--input" id="match-' + thisMatch.name + '-home">'
+    output += '<input ' + disabledClass + ' value="' + guess_home + '" type="number" min="0" max="9" class="group-match--input" id="match-' + thisMatch.name + '-home">'
     output += '<div class="match--team">'
     output += '<span class="match--team--name">' + getTeamInfo(thisMatch.home_team, 'name') + '</span>'
     output += '<span class="match--team--flag" style="background-image: url(' + getTeamInfo(thisMatch.home_team, 'flag') + ')"></span>'
@@ -62,7 +74,7 @@ function printGroups(groups) {
     output += '</td>'
     output += '<td>' 
     output += '<label class="match--team--container match--team--container__away">'
-    output += '<input value="' + guess_away + '" type="number" min="0" max="9" class="group-match--input" id="match-' + thisMatch.name + '-away">'
+    output += '<input ' + disabledClass + ' value="' + guess_away + '" type="number" min="0" max="9" class="group-match--input" id="match-' + thisMatch.name + '-away">'
     output += '<div class="match--team">'
     output += '<span class="match--team--flag" style="background-image: url(' + getTeamInfo(thisMatch.away_team, 'flag') + ')"></span>'
     output += '<span class="match--team--name">' + getTeamInfo(thisMatch.away_team, 'name') + '</span>'
@@ -116,20 +128,30 @@ function getTeamInfo(teamNumber, info) {
 
 function getTeamDropdown(round, position) {
   let team = null
+  var ddOutput
   if (userData['round_' + round][position]) {
     team = userData['round_' + round][position]
   }
-  let selectId = 'best-' + round + '-' + position
-  let output = '<select class="dropdown--teams" id="' + selectId + '">'
-  output += '<option>--Valitse--</option>'
-  for (let i = 0; i < jsonData.teams.length; i++) {
-    output += '<option value="' + jsonData.teams[i].id + '"'
-    output += (team == parseInt(jsonData.teams[i].id)) ? ' selected>' : '>'
-    output += jsonData.teams[i].name
-    output += '</option>'
+
+  if (!knockoutClosed) {
+    let selectId = 'best-' + round + '-' + position
+    ddOutput = '<select class="dropdown--teams" id="' + selectId + '">'
+    ddOutput += '<option>--Valitse--</option>'
+    for (let i = 0; i < jsonData.teams.length; i++) {
+      ddOutput += '<option value="' + jsonData.teams[i].id + '"'
+      ddOutput += (team == parseInt(jsonData.teams[i].id)) ? ' selected>' : '>'
+      ddOutput += jsonData.teams[i].name
+      ddOutput += '</option>'
+    }
+    ddOutput += '</select>'
+  } else {
+    if (team) {
+      ddOutput = '<p>' + jsonData.teams[team].name + '</p>'
+    } else {
+      ddOutput = '<p class="dim">&laquo;Ei valittu&raquo;</p>'
+    }
   }
-  output += '</select>'
-  return output
+  return ddOutput
 
 }
 
@@ -146,22 +168,24 @@ function setupListeners() {
     })
   })
 
-  document.querySelectorAll('.dropdown--teams').forEach(function(element, index) {
-    element.addEventListener('change', function(event) {
-      let elementNameArray = event.target.id.split('-')
-      let round = elementNameArray[1]
-      let team = event.target.value
-      let position = parseInt(elementNameArray[2]) + 1
-      saveRoundGuess(round, team, position)
+  if (!knockoutClosed) {
+    document.querySelectorAll('.dropdown--teams').forEach(function(element, index) {
+      element.addEventListener('change', function(event) {
+        let elementNameArray = event.target.id.split('-')
+        let round = elementNameArray[1]
+        let team = event.target.value
+        let position = parseInt(elementNameArray[2]) + 1
+        saveRoundGuess(round, team, position)
+      })
     })
-  })
 
-  document.getElementById('goalStar').addEventListener('input', function(event) {
-    if (goalStarTimout) {
-      clearTimeout(goalStarTimout)
-    }
-    goalStarTimout = setTimeout(saveGoalStar, 1000)
-  })
+    document.getElementById('goalStar').addEventListener('input', function(event) {
+      if (goalStarTimout) {
+        clearTimeout(goalStarTimout)
+      }
+      goalStarTimout = setTimeout(saveGoalStar, 1000)
+    })
+  }
 }
 
 function saveGoalStar() {

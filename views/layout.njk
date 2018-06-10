@@ -9,10 +9,6 @@
   <body>
     <header class="clearfix">
       <p class="page-title">MM 2018 -kisaveikkaus</p>
-      <!--<nav>
-        <a href="/">Etusivu</a>
-        <a href="/ohjeet">Ohjeet</a>
-      </nav>-->
       <div class="header--login">
         {% if display_name %}
           Olet kirjautunut nimellä {{ display_name }}. <br>
@@ -22,6 +18,13 @@
         {% endif %}
       </div>
     </header>
+    <nav>
+      <a href="/" 
+        {% if path == '/' %} class="active" {% endif %}>Etusivu</a>
+
+      <a href="/scores" 
+        {% if path == '/scores' %} class="active" {% endif %}>Pistetaulukko</a>
+    </nav>
     <h1>{{ title }}</h1>
     
     {% block content %}{% endblock %}

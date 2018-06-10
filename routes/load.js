@@ -1,80 +1,55 @@
-const app = require('express')
-const https = require('https')
-const { Pool, Client } = require('pg')
-
+var app = require('express')
 var router = app.Router()
+var model = require('../lib/model')
+var dataprocessing = require('../lib/dataprocessing')
 
-router.get('/', function(request, response, next) {
-  loadData(response, request.session.login_id)
-  
+
+// SUB-ROUTES
+
+router.get('/me', function(request, response, next) {
+  model.loadUserData(request.session.login_id)
+    .then(function(result) {
+      response.send(result)
+    })
+    .catch(e => setImmediate(() => {
+      console.log(e)
+      response.sendStatus(500)
+    }))
 })
 
-function loadData(response, user_id) {
-  var jsonObject = {};
+router.get('/scores', function(request, response, next) {
 
-  jsonObject.group_matches = {}
-  jsonObject.round_16 = []
-  jsonObject.round_8 = []
-  jsonObject.round_4 = []
-  jsonObject.round_2 = []
-  jsonObject.round_1 = []
-  jsonObject.goal_star = ''
+  var data
+  var userData
 
-  var pool = new Pool({
-    connectionString: process.env.DATABASE_URL
-  })
+  model.getData()
+    .then(function(result) {
+      data = result
+      model.loadAllUserData()
+        .then(function(result) {
+          userData = result
+          results = dataprocessing.calculateScores(data, userData)
+          response.send(results)
+        })
+        .catch(e => setImmediate(() => {
+          console.log(e)
+          response.sendStatus(500)
+        }))
+    })
+    .catch(e => setImmediate(() => {
+      console.log(e)
+      response.sendStatus(500)
+    }))
+})
 
-  pool.query(
-      'SELECT * FROM guess_match WHERE user_id = $1 ORDER BY match_id ASC',
-      [user_id],
-      (err, result) => {
-
-    if (err) {
-      console.log(err.stack)
-    } else {
-
-      for (let i = 0; i < result.rows.length; i++) {
-        let row = result.rows[i]
-        let rowOb = {
-          "home": row.guess_home,
-          "away": row.guess_away
-        }
-        jsonObject.group_matches['match_' + row.match_id] = rowOb
-      }
-
-      pool.query(
-        'SELECT * FROM guess_position WHERE user_id = $1 ORDER BY round, position',
-        [user_id],
-        (err, result) => {
-  
-        if (err) {
-          console.log(err.stack)
-        } else {
-
-          for (let i = 0; i < result.rows.length; i++) {
-            let row = result.rows[i]
-            jsonObject['round_' + row.round][row.position - 1] = row.team
-          }
-
-          pool.query(
-            'SELECT player FROM guess_scorer WHERE user_id = $1',
-            [user_id],
-            (err, result) => {
-      
-            if (err) {
-              console.log(err.stack)
-            } else {
-              if (result.rows.length > 0) {
-                jsonObject.goal_star = result.rows[0].player
-              }
-              response.send(jsonObject)
-            }
-          })
-        }
-      })
-    }
-  })
-}
+router.get('/data', function(request, response, next) {
+  model.getData()
+    .then(function(result) {
+      result = dataprocessing.closeExpired(result)
+      response.send(result)
+    })
+    .catch(e => setImmediate(() => {reject(e)}))
+})
 
 
 module.exports = router

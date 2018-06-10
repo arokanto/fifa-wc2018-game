@@ -38,14 +38,20 @@ app.use(
 // Authenticate all requests
 app.all('*',          require('./global/session'))
 
-// Set up routes
+// ROUTES
+// Pages
 app.use('/',          require('./routes/index'))
-app.use('/data',      require('./routes/data'))
+app.use('/scores',    require('./routes/scores'))
+
+// API endpoints
 app.use('/save',      require('./routes/save'))
 app.use('/load',      require('./routes/load'))
+
+// Authentication
 app.use('/login',     require('./routes/login'))
 app.use('/logout',    require('./routes/logout'))
 app.use('/register',  require('./routes/register'))
+
 
 // Start listening to requests
 var port = process.env.PORT || 8000

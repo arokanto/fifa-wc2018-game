@@ -42,21 +42,20 @@ header {
   padding: 1rem;
 }
 
-nav {
-  float: left;
-}
-
 nav a {
   color: #FFF;
+  background-color: #0f3f79;
   font-weight: bold;
-  font-size: 1.2rem;
+  font-size: 1rem;
+  letter-spacing: 0.05rem;
   display: inline-block;
-  margin-right: 1rem;
+  margin: 0.5rem 0.5rem 0 0;
+  padding: 0.4rem 1rem 0.3rem;
   text-decoration: none;
   text-transform: uppercase;
 }
-nav a:hover { color: #00B7FF; }
-nav a.active { text-decoration: underline; }
+nav a:hover { background-color: #00B7FF; }
+nav a.active { background-color: #00B7FF; }
 
 .login-form {
   max-width: 40rem;
@@ -116,7 +115,7 @@ td {
   text-align: center;
 }
 
-.table--group-matches input {
+.group-match--input {
   font-size: 2rem;
   width: 40px;
   text-align: center;
@@ -193,4 +192,12 @@ td {
 }
 .loader img {
   width: 50px;
+}
+
+.disabled {
+  background-color: #eee;
+}
+
+.dim {
+  color: #999;
 }
