@@ -42,6 +42,20 @@ header {
   padding: 1rem;
 }
 
+footer {
+  text-align: right;
+  background-color: #0f3f79;
+  color: #FFF;
+  margin: 3rem 0 0;
+  padding: 1rem;
+}
+
+.content:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
 nav a {
   color: #FFF;
   background-color: #0f3f79;

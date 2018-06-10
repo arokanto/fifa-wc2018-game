@@ -20,14 +20,24 @@
     </header>
     <nav>
       <a href="/" 
-        {% if path == '/' %} class="active" {% endif %}>Etusivu</a>
+        {% if path == '/' %} class="active" {% endif %}>Veikkauksesi</a>
 
       <a href="/scores" 
         {% if path == '/scores' %} class="active" {% endif %}>Pistetaulukko</a>
     </nav>
-    <h1>{{ title }}</h1>
-    
-    {% block content %}{% endblock %}
 
+    <div class="content">
+
+      <h1>{{ title }}</h1>
+      
+      {% block content %}{% endblock %}
+
+    </div>
+
+
+    <footer>
+      Ongelmia, palautetta? → 
+      <a href="mailto:tuomas.arokanto@gmail.com">tuomas.arokanto@gmail.com</a>
+    </footer>
   </body>
 </html>
