@@ -154,7 +154,7 @@ router.post('/goal_star', function(request, response, next) {
       if (result.rows[0].exists) {
         sql = 'UPDATE guess_scorer \
           SET \
-            player = $2, \
+            player = $2 \
           WHERE user_id = $1'
       } else {
         sql = 'INSERT INTO guess_scorer \
