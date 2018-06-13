@@ -43,6 +43,7 @@ function printGroups(groups) {
   for (let i = 0; i < matches.length; i++) {
     let thisMatch = matches[i]
     let thisDate = new Date(thisMatch.date)
+    let thisScore = '-'
 
     disabledClass = ''
     if (thisMatch.started) {
@@ -58,6 +59,23 @@ function printGroups(groups) {
       guess_home = guesses.home
       guess_away = guesses.away
     }
+
+    let home_result_class = ''
+    let away_result_class = ''
+    if(thisMatch.finished) {
+      if (guess_home == thisMatch.home_result) {
+        home_result_class = 'group-match--input__correct'
+      } else {
+        home_result_class = 'group-match--input__incorrect'
+      }
+      if (guess_away == thisMatch.away_result) {
+        away_result_class = 'group-match--input__correct'
+      } else {
+        away_result_class = 'group-match--input__incorrect'
+      }
+
+      thisScore = calculateResultScore(thisMatch, guess_home, guess_away)
+    }
     
     output += '<tr class="' + disabledClass + '">';
     output += '<td>' + thisMatch.name + '</td>'
@@ -65,22 +83,33 @@ function printGroups(groups) {
                + ' ' + thisDate.toLocaleTimeString("fi-FI") + '</td>'
     output += '<td>' 
     output += '<label class="match--team--container match--team--container__home">'
-    output += '<input ' + disabledClass + ' value="' + guess_home + '" type="number" min="0" max="9" class="group-match--input" id="match-' + thisMatch.name + '-home">'
+    output += '<input ' + disabledClass + ' value="' + guess_home + '" type="number" min="0" max="9" '
+    output +=   'class="group-match--input ' + home_result_class + '" '
+    output +=   'id="match-' + thisMatch.name + '-home">'
     output += '<div class="match--team">'
     output += '<span class="match--team--name">' + getTeamInfo(thisMatch.home_team, 'name') + '</span>'
     output += '<span class="match--team--flag" style="background-image: url(' + getTeamInfo(thisMatch.home_team, 'flag') + ')"></span>'
     output += '</div>'
     output += '</label>'
+    if (thisMatch.finished) {
+      output += '<p class="group-match--result">' + thisMatch.home_result + '</p>'
+    }
     output += '</td>'
     output += '<td>' 
     output += '<label class="match--team--container match--team--container__away">'
-    output += '<input ' + disabledClass + ' value="' + guess_away + '" type="number" min="0" max="9" class="group-match--input" id="match-' + thisMatch.name + '-away">'
+    output += '<input ' + disabledClass + ' value="' + guess_away + '" type="number" min="0" max="9" '
+    output +=   'class="group-match--input ' + away_result_class + '" '
+    output +=   'id="match-' + thisMatch.name + '-away">'
     output += '<div class="match--team">'
     output += '<span class="match--team--flag" style="background-image: url(' + getTeamInfo(thisMatch.away_team, 'flag') + ')"></span>'
     output += '<span class="match--team--name">' + getTeamInfo(thisMatch.away_team, 'name') + '</span>'
     output += '</div>'
     output += '</label>'
+    if (thisMatch.finished) {
+      output += '<p class="group-match--result group-match--result__away">' + thisMatch.away_result + '</p>'
+    }
     output += '</td>'
+    output += '<td>' + thisScore + '</td>'
     output += '</tr>'
   }
   guessGroupMatchesTable.innerHTML = output;
@@ -93,7 +122,6 @@ function printBestTable(round) {
     output += '<tr>'
     output += '<td>' + (i + 1) + '</td>'
     output += '<td>' + getTeamDropdown(round, i) + '</td>'
-    output += '<td></td>'
     output += '<td></td>'
     output += '</tr>'
   }
@@ -124,6 +152,33 @@ function getTeamInfo(teamNumber, info) {
     return teams[teamNumber - 1][info]
   }
   
+}
+
+function calculateResultScore(thisMatch, guess_home, guess_away) {
+  // And then the winners
+  var realWinner
+  if (thisMatch.home_result > thisMatch.away_result) {
+    realWinner = 1
+  } else if (thisMatch.home_result < thisMatch.away_result) {
+    realWinner = -1
+  } else {
+    realWinner = 0
+  }
+
+  var guessWinner
+  if (guess_home > guess_away) {
+    guessWinner = 1
+  } else if (guess_home < guess_away) {
+    guessWinner = -1
+  } else {
+    guessWinner = 0
+  }
+
+  if (realWinner === guessWinner) {
+    return 1
+  } else {
+    return 0
+  }
 }
 
 function getTeamDropdown(round, position) {
