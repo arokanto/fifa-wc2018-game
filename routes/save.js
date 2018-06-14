@@ -89,7 +89,6 @@ router.post('/round', function(request, response, next) {
 
       let sql
       if (result.rows[0].exists) {
-        console.log('exists, updating...')
         sql = 'UPDATE guess_position \
           SET \
             team = $3 \
@@ -97,7 +96,6 @@ router.post('/round', function(request, response, next) {
             AND user_id = $2 \
             AND position = $4'
       } else {
-        console.log('doesnt exist, inserting...')
         sql = 'INSERT INTO guess_position \
           (round, user_id, team, position) \
           VALUES($1, $2, $3, $4)'
