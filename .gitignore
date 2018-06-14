@@ -1,6 +1,7 @@
 # Security and sanity
 .*
 ~*
+latest.dump*
 
 # Git
 !.gitignore
