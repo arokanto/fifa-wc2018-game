@@ -203,7 +203,7 @@ function getTeamDropdown(round, position) {
     ddOutput += '</select>'
   } else {
     if (team) {
-      ddOutput = '<p>' + jsonData.teams[team].name + '</p>'
+      ddOutput = '<p>' + jsonData.teams[team - 1].name + '</p>'
     } else {
       ddOutput = '<p class="dim">&laquo;Ei valittu&raquo;</p>'
     }
