@@ -191,7 +191,7 @@ function getTeamDropdown(round, position) {
   if (!knockoutClosed) {
     let selectId = 'best-' + round + '-' + position
     ddOutput = '<select class="dropdown--teams" id="' + selectId + '">'
-    ddOutput += '<option>--Valitse--</option>'
+    ddOutput += '<option value="0">--Valitse--</option>'
     for (let i = 0; i < jsonData.teams.length; i++) {
       ddOutput += '<option value="' + jsonData.teams[i].id + '"'
       ddOutput += (team == parseInt(jsonData.teams[i].id)) ? ' selected>' : '>'
@@ -289,6 +289,7 @@ function saveGroupMatchGuess(matchId, homeGuess, awayGuess) {
 }
 
 function saveRoundGuess(round, team, position) {
+  console.log(team)
   let data = {
     'round':    round,
     'team':     team,
