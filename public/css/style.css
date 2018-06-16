@@ -91,11 +91,23 @@ nav a.active { background-color: #00B7FF; }
   font-weight: bold;
   margin-top: 0;
   color: #FFF;
-  float: left;
+  text-align: center;
 }
 
 .header--login {
-  float: right;
+  text-align: center;
+}
+
+@media screen and (min-width: 500px) {
+  .page-title {
+    text-align: left;
+    float: left;
+  }
+
+  .header--login {
+    float: right;
+    text-align: right;
+  } 
 }
 
 .clearfix:after {
@@ -124,6 +136,11 @@ nav a.active { background-color: #00B7FF; }
   }
 }
 
+.table-container {
+  overflow: scroll;
+  width: 100%;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
@@ -142,6 +159,7 @@ td {
 .group-match--input {
   font-size: 2rem;
   width: 40px;
+  height: 40px;
   text-align: center;
 }
   .group-match--input__correct {
@@ -176,8 +194,6 @@ td {
 
 .match--team {
   display: inline;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
 }
 
 .match--team--container__home .match--team {
@@ -189,14 +205,18 @@ td {
 }
 
 .match--team--flag {
-  display: inline-block;
-  width: 50px;
-  vertical-align: middle;
+  display: block;
   margin: 0 0.5rem;
 }
   .match--team--flag img {
-    width: 100%;
+    width: 50px;
   }
+
+.match--team--name {
+  display: block;
+  margin: 0 0.5rem;
+  text-align: center;
+}
 
 
 .error {

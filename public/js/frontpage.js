@@ -87,9 +87,8 @@ function printGroups(groups) {
     output +=   'class="group-match--input ' + home_result_class + '" '
     output +=   'id="match-' + thisMatch.name + '-home">'
     output += '<div class="match--team">'
-    output += '<span class="match--team--name">' + getTeamInfo(thisMatch.home_team, 'name') + '</span>'
-    // output += '<span class="match--team--flag" style="background-image: url(' + getTeamInfo(thisMatch.home_team, 'flag') + ')"></span>'
     output += '<span class="match--team--flag"><img src="https://api.fifa.com/api/v1/picture/flags-fwc2018-4/' + getTeamInfo(thisMatch.home_team, 'fifaCode') + '"></span>'
+    output += '<span class="match--team--name">' + getTeamInfo(thisMatch.home_team, 'name') + '</span>'
     output += '</div>'
     output += '</label>'
     if (thisMatch.finished) {
@@ -102,7 +101,6 @@ function printGroups(groups) {
     output +=   'class="group-match--input ' + away_result_class + '" '
     output +=   'id="match-' + thisMatch.name + '-away">'
     output += '<div class="match--team">'
-    // output += '<span class="match--team--flag" style="background-image: url(' + getTeamInfo(thisMatch.away_team, 'flag') + ')"></span>'
     output += '<span class="match--team--flag"><img src="https://api.fifa.com/api/v1/picture/flags-fwc2018-4/' + getTeamInfo(thisMatch.away_team, 'fifaCode') + '"></span>'
     output += '<span class="match--team--name">' + getTeamInfo(thisMatch.away_team, 'name') + '</span>'
     output += '</div>'
