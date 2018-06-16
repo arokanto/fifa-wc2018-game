@@ -18,7 +18,7 @@ fetch('/load/data/', { credentials: 'include' })
       .then(function(data){
         userData = data
 
-        if (!jsonData.knockout_closed || js_loaded) {
+        if (!jsonData.knockout_closed) {
           knockoutClosed = false
         } else {
           document.getElementById('goalStar').setAttribute('disabled', true)

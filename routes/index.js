@@ -6,7 +6,6 @@ var guesses_match
 /* GET home page. */
 router.get('/', function(req, res, next) {
 
-  bypass = (req.query.super_secret_bypass == '1')
   let display_name = false;
   if (req.session && req.session.display_name) {
     display_name = req.session.display_name
@@ -15,8 +14,7 @@ router.get('/', function(req, res, next) {
   res.render('index.njk', {
     title: '',
     display_name: display_name,
-    path: req.originalUrl,
-    bypass: bypass
+    path: req.originalUrl
   });
 });
 
