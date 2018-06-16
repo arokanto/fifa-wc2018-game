@@ -157,6 +157,15 @@ function getTeamInfo(teamNumber, info) {
 }
 
 function calculateResultScore(thisMatch, guess_home, guess_away) {
+  let score = 0
+
+  // Score from the results
+  if (guess_home === thisMatch.home_result
+    && guess_away === thisMatch.away_result) {
+  
+    score += 2
+}
+
   // And then the winners
   var realWinner
   if (thisMatch.home_result > thisMatch.away_result) {
@@ -177,10 +186,10 @@ function calculateResultScore(thisMatch, guess_home, guess_away) {
   }
 
   if (realWinner === guessWinner) {
-    return 1
-  } else {
-    return 0
+    score += 1
   }
+
+  return score
 }
 
 function getTeamDropdown(round, position) {
