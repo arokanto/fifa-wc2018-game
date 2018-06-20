@@ -169,15 +169,15 @@ td {
     border: 2px solid #79120f;
   }
 
-.group-match--result {
-  text-align: right;
+.group-match--final-result {
+  text-align: center;
   font-weight: bold;
   font-size: 1rem;
   margin: 0;
 }
-  .group-match--result__away {
-    text-align: left;
-  }
+.group-match--guesses {
+  font-weight: normal
+}
 
 .match--team--container {
   display: flex;
@@ -259,4 +259,11 @@ td {
 
 .dim {
   color: #999;
+}
+
+.table-switcher {
+  display: block;
+  float: right;
+  font-size: 0.7rem;
+  cursor: pointer;
 }

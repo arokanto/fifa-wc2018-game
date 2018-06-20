@@ -36,6 +36,16 @@ fetch('/load/data/', { credentials: 'include' })
       })
   })
 
+function loadDetailedResults() {
+  fetch('/load/others', { credentials: 'include' })
+    .then(function(response) {
+      return response.json()
+    })
+    .then(function(data){
+      printDetailedResults(data)
+    })
+}
+
 function printGroups(groups) {
   let guessGroupMatchesTable = document.getElementById('table--group-matches')
   let matches = getMatchesSorted(groups)
@@ -62,6 +72,7 @@ function printGroups(groups) {
 
     let home_result_class = ''
     let away_result_class = ''
+    let rowSpan = 1
     if(thisMatch.finished) {
       if (guess_home == thisMatch.home_result) {
         home_result_class = 'group-match--input__correct'
@@ -75,11 +86,12 @@ function printGroups(groups) {
       }
 
       thisScore = calculateResultScore(thisMatch, guess_home, guess_away)
+      rowSpan = 2
     }
     
-    output += '<tr class="' + disabledClass + '">';
-    output += '<td>' + thisMatch.name + '</td>'
-    output += '<td>' + thisDate.toLocaleDateString("fi-FI") 
+    output += '<tr class="group-match--row ' + disabledClass + '">';
+    output += '<td rowspan="' + rowSpan + '">' + thisMatch.name + '</td>'
+    output += '<td rowspan="' + rowSpan + '">' + thisDate.toLocaleDateString("fi-FI") 
                + ' ' + thisDate.toLocaleTimeString("fi-FI") + '</td>'
     output += '<td>' 
     output += '<label class="match--team--container match--team--container__home">'
@@ -91,9 +103,6 @@ function printGroups(groups) {
     output += '<span class="match--team--name">' + getTeamInfo(thisMatch.home_team, 'name') + '</span>'
     output += '</div>'
     output += '</label>'
-    if (thisMatch.finished) {
-      output += '<p class="group-match--result">' + thisMatch.home_result + '</p>'
-    }
     output += '</td>'
     output += '<td>' 
     output += '<label class="match--team--container match--team--container__away">'
@@ -105,12 +114,15 @@ function printGroups(groups) {
     output += '<span class="match--team--name">' + getTeamInfo(thisMatch.away_team, 'name') + '</span>'
     output += '</div>'
     output += '</label>'
-    if (thisMatch.finished) {
-      output += '<p class="group-match--result group-match--result__away">' + thisMatch.away_result + '</p>'
-    }
     output += '</td>'
-    output += '<td>' + thisScore + '</td>'
+    output += '<td rowspan="' + rowSpan + '">' + thisScore + '</td>'
     output += '</tr>'
+    if (thisMatch.finished) {
+      output += '<tr class="disabled">'
+      output += '<td colspan="2" class="group-match--result"><p class="group-match--final-result">'
+      output += 'Lopputulos: ' + thisMatch.home_result + '-' + thisMatch.away_result
+      output += '</p></td></tr>'
+    }
   }
   guessGroupMatchesTable.innerHTML = output;
 }
@@ -143,6 +155,31 @@ function getMatchesSorted(groups) {
   
   return matches
 }
+
+function printDetailedResults(data) {
+  document.querySelectorAll('.group-match--result').forEach(function(element, index) {
+    let results = document.createElement('p');
+    results.className = 'group-match--guesses'
+    let thisText = ''
+    for (let i = 0; i < data.length; i++) {
+      let thisPlayer = data[i]
+      if (thisPlayer.display_name == 'Karri') {
+        console.log(thisPlayer)
+      }
+      if (thisPlayer && thisPlayer.guesses[index]) {
+        let home = thisPlayer.guesses[index].home || 0
+        let away = thisPlayer.guesses[index].away || 0
+        thisText += thisPlayer.display_name + ': '
+        thisText += home + '-' + away
+        thisText += '<br>'
+      }
+    }
+    
+    results.innerHTML = thisText
+    element.appendChild(results)
+  })
+}
+
 
 function getTeamInfo(teamNumber, info) {
   let teams = jsonData.teams;
@@ -250,6 +287,10 @@ function setupListeners() {
       goalStarTimout = setTimeout(saveGoalStar, 1000)
     })
   }
+
+  document.getElementById('tableSwitcher_group').addEventListener('click', function(event) {
+    loadDetailedResults()
+  })
 }
 
 function saveGoalStar() {
