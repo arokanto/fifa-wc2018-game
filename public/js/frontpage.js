@@ -288,9 +288,11 @@ function setupListeners() {
     })
   }
 
+  /*
   document.getElementById('tableSwitcher_group').addEventListener('click', function(event) {
     loadDetailedResults()
   })
+  */
 }
 
 function saveGoalStar() {
