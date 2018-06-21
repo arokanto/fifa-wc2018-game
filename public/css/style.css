@@ -152,7 +152,7 @@ th {
 }
 td {
   padding: 0.5rem;
-  border: 1px solid #ddf;
+  border: 1px solid #ccc;
   text-align: center;
 }
 
@@ -266,4 +266,12 @@ td {
   float: right;
   font-size: 0.7rem;
   cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
+
+.correct {
+  color: #0f7926;
 }

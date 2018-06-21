@@ -3,6 +3,8 @@ var activeElement
 var goalStarTimout
 var loader = document.getElementById('loader')
 var knockoutClosed = true
+var isShowingDetailedScores = false
+var detailedScoresLoaded = false
 
 fetch('/load/data/', { credentials: 'include' })
   .then(function(response) {
@@ -44,6 +46,18 @@ function loadDetailedResults() {
     .then(function(data){
       printDetailedResults(data)
     })
+}
+
+function hideDetailedResults() {
+  document.querySelectorAll('.group-match--guesses').forEach(function(element, index) {
+    element.classList.add('hidden')
+  })
+}
+
+function showDetailedResults() {
+  document.querySelectorAll('.group-match--guesses').forEach(function(element, index) {
+    element.classList.remove('hidden')
+  })
 }
 
 function printGroups(groups) {
@@ -163,14 +177,18 @@ function printDetailedResults(data) {
     let thisText = ''
     for (let i = 0; i < data.length; i++) {
       let thisPlayer = data[i]
-      if (thisPlayer.display_name == 'Karri') {
-        console.log(thisPlayer)
-      }
-      if (thisPlayer && thisPlayer.guesses[index]) {
-        let home = thisPlayer.guesses[index].home || 0
-        let away = thisPlayer.guesses[index].away || 0
+      if (thisPlayer && thisPlayer.guesses['match_' + (index + 1)] && thisPlayer.display_name != 'Teuvo') {
+        let thisMatch = thisPlayer.guesses['match_' + (index + 1)]
+        let home = thisMatch.home || 0
+        let away = thisMatch.away || 0
+        if (thisMatch.correct) {
+          thisText += '<span class="correct">'
+        }
         thisText += thisPlayer.display_name + ': '
         thisText += home + '-' + away
+        if (thisMatch.correct) {
+          thisText += '</span>'
+        }
         thisText += '<br>'
       }
     }
@@ -288,11 +306,22 @@ function setupListeners() {
     })
   }
 
-  /*
   document.getElementById('tableSwitcher_group').addEventListener('click', function(event) {
-    loadDetailedResults()
+    if (!isShowingDetailedScores) {
+      if (detailedScoresLoaded) {
+        showDetailedResults()
+      } else {
+        loadDetailedResults()
+      }
+      event.target.innerHTML = 'Piilota muiden veikkaukset'
+      isShowingDetailedScores = true
+    } else {
+      hideDetailedResults()
+      event.target.innerHTML = 'Näytä muiden veikkaukset'
+      isShowingDetailedScores = false
+    }
+    
   })
-  */
 }
 
 function saveGoalStar() {
