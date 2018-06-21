@@ -18,6 +18,7 @@ router.post('/group_match', function(request, response, next) {
     isExpired = dataprocessing.isMatchExpired(result, request.body.match_id)
     if (isExpired) {
       response.sendStatus(403)
+      return 0
     }
 
     let pool = new Pool({
@@ -40,6 +41,7 @@ router.post('/group_match', function(request, response, next) {
       if (err) {
         console.log(err.stack)
         response.sendStatus(500)
+        return 0
       } else {
   
         let sql
@@ -66,6 +68,7 @@ router.post('/group_match', function(request, response, next) {
           if (err) {
             console.log(err.stack)
             response.sendStatus(500)
+            return 0
           } else {
             response.sendStatus(200)
           }
@@ -74,7 +77,7 @@ router.post('/group_match', function(request, response, next) {
     })
   })
   .catch(e => setImmediate(() => {
-    console.log(e)
+    // console.log(e)
     response.sendStatus(500)
     next()
   }))
