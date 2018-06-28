@@ -133,7 +133,8 @@ function printGroups(groups) {
     output += '</tr>'
     if (thisMatch.finished) {
       output += '<tr class="disabled">'
-      output += '<td colspan="2" class="group-match--result"><p class="group-match--final-result">'
+      output += '<td colspan="2" class="group-match--result" id="groupMatchResults_' + thisMatch.name + '">'
+      output += '<p class="group-match--final-result">'
       output += 'Lopputulos: ' + thisMatch.home_result + '-' + thisMatch.away_result
       output += '</p></td></tr>'
     }
@@ -172,21 +173,22 @@ function getMatchesSorted(groups) {
 
 function printDetailedResults(data) {
   document.querySelectorAll('.group-match--result').forEach(function(element, index) {
+    let matchId = element.id.split('_')[1]
     let results = document.createElement('p');
     results.className = 'group-match--guesses'
     let thisText = ''
-    for (let i = 0; i < data.length; i++) {
-      let thisPlayer = data[i]
-      if (thisPlayer && thisPlayer.guesses['match_' + (index + 1)] && thisPlayer.display_name != 'Teuvo') {
-        let thisMatch = thisPlayer.guesses['match_' + (index + 1)]
-        let home = thisMatch.home || 0
-        let away = thisMatch.away || 0
-        if (thisMatch.correct) {
+    let thisMatch = data['match_' + matchId]
+    for (let i = 0; i < thisMatch.length; i++) {
+      let thisPlayer = thisMatch[i]
+      if (thisPlayer && thisPlayer.display_name != 'Teuvo') {
+        let home = thisPlayer.home_result || 0
+        let away = thisPlayer.away_result || 0
+        if (thisPlayer.correct) {
           thisText += '<span class="correct">'
         }
         thisText += thisPlayer.display_name + ': '
         thisText += home + '-' + away
-        if (thisMatch.correct) {
+        if (thisPlayer.correct) {
           thisText += '</span>'
         }
         thisText += '<br>'
