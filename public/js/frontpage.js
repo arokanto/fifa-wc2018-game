@@ -149,7 +149,7 @@ function printBestTable(round) {
     output += '<tr>'
     output += '<td>' + (i + 1) + '</td>'
     output += '<td>' + getTeamDropdown(round, i) + '</td>'
-    output += '<td></td>'
+    output += '<td>' + getPositionPoints(round, i) + '</td>'
     output += '</tr>'
   }
   guessBestTable.innerHTML = output;
@@ -267,13 +267,43 @@ function getTeamDropdown(round, position) {
     ddOutput += '</select>'
   } else {
     if (team) {
-      ddOutput = '<p>' + jsonData.teams[team - 1].name + '</p>'
+      let correctClass = ''
+      if (isTeamCorrect(team, round)) correctClass = ' class="correct"'
+      ddOutput = '<p' + correctClass + '>'
+      ddOutput += jsonData.teams[team - 1].name
+      ddOutput += '</p>'
     } else {
       ddOutput = '<p class="dim">&laquo;Ei valittu&raquo;</p>'
     }
   }
   return ddOutput
+}
 
+function isTeamCorrect(team, round) {
+  if (round == 1) return false
+  let thisRound = jsonData.knockout['round_' + round]
+  for (let i = 0; i < thisRound.matches.length; i++) {
+    let thisMatch = thisRound.matches[i]
+    if (thisMatch.home_team == team || thisMatch.away_team == team) {
+      return true
+    }
+  }
+  return false
+}
+
+function getPositionPoints(round, position) {
+  if (round == 1) return 0
+  let team = null
+  if (userData['round_' + round][position]) {
+    team = userData['round_' + round][position]
+  }
+
+  if (team) {
+    if (isTeamCorrect(team, round)) {
+      return 2
+    }
+  }
+  return 0
 }
 
 function setupListeners() {
