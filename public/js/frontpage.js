@@ -300,7 +300,14 @@ function getPositionPoints(round, position) {
 
   if (team) {
     if (isTeamCorrect(team, round)) {
-      return 2
+      switch(round) {
+        case 16: return 2; break;
+        case 8: return 4; break;
+        case 4: return 8; break;
+        case 2: return 12; break;
+        case 1: return 16; break;
+        default: return 0;
+      }
     }
   }
   return 0
