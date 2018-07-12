@@ -10,11 +10,16 @@ router.get('/', function(req, res, next) {
   if (req.session && req.session.display_name) {
     display_name = req.session.display_name
   }
+  if (req.query.id) {
+    user_id = req.query.id
+  } else {
+    user_id = req.session.login_id
+  }
 
   res.render('index.njk', {
     title: '',
     display_name: display_name,
-    path: req.originalUrl
+    id: user_id
   });
 });
 

@@ -7,7 +7,7 @@ var dataprocessing = require('../lib/dataprocessing')
 // SUB-ROUTES
 
 router.get('/me', function(request, response, next) {
-  model.loadUserData(request.session.login_id)
+  model.loadUserData(request.query.user_id)
   .then(function(result) {
     response.send(result)
   })

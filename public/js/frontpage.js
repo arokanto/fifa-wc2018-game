@@ -13,7 +13,9 @@ fetch('/load/data/', { credentials: 'include' })
   .then(function(data) {
     jsonData = data
 
-    fetch('/load/me', { credentials: 'include' })
+    fetch('/load/me?user_id=' + user_id, { 
+      credentials: 'include'
+     })
       .then(function(response) {
         return response.json()
       })

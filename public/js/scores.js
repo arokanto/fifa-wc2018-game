@@ -19,7 +19,8 @@ function printTable(scoreData) {
     
     output += '<tr>';
     output += '<td>' + (i + 1) + '</td>'
-    output += '<td>' + thisPlayer.display_name + '</td>'
+    output += '<td><a href="/?id=' + thisPlayer.user_id + '">'
+    output += thisPlayer.display_name + '</a></td>'
     output += '<td>' + thisPlayer.match_winners + '</td>'
     output += '<td>' + thisPlayer.match_results + '</td>'
     output += '<td>' + thisPlayer.positions + '</td>'
