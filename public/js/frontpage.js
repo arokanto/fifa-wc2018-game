@@ -282,7 +282,15 @@ function getTeamDropdown(round, position) {
 }
 
 function isTeamCorrect(team, round) {
-  if (round == 1) return false
+  if (round == 1) {
+    if (typeof jsonData.knockout.round_2.matches[0].winner !== 'undefined') {
+      // We have a winner
+      winner = jsonData.knockout.round_2.matches[0].winner
+      if (team == winner) {
+        return true
+      }
+    }
+  }
   let thisRound = jsonData.knockout['round_' + round]
   for (let i = 0; i < thisRound.matches.length; i++) {
     let thisMatch = thisRound.matches[i]
@@ -294,7 +302,6 @@ function isTeamCorrect(team, round) {
 }
 
 function getPositionPoints(round, position) {
-  if (round == 1) return 0
   let team = null
   if (userData['round_' + round][position]) {
     team = userData['round_' + round][position]
